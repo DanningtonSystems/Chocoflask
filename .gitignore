@@ -86,3 +86,12 @@ typings/
 
 # DynamoDB Local files
 .dynamodb/
+
+# Lockfile & NPM/Yarn
+yarn.lock
+package-lock.json
+yarn-error.log
+npm-debug.log
+
+# Chocoflask-specific
+Config.js

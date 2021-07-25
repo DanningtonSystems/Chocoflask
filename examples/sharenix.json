@@ -1,0 +1,31 @@
+{
+    "DefaultFileUploader": "example.com/chocoflask",
+    "DefaultImageUploader": "example.com/chocoflask",
+    "DefaultUrlShortener": "example.com/chocoflask",
+    "XineramaHead": 0,
+    "NotificationTime": 10,
+    "NotifyUploading": true,
+    "NotifyCommand": "",
+    "ClipboardTime": 5,
+    "SaveFolder": ".local/share/sharenix",
+    "OrganizedFolders": false,
+  
+    "Services": [
+      {
+        "Name": "example.com/chocoflask",
+        "RequestType": "POST",
+        "RequestURL": "https://example.com/chocoflask/api/v1/upload",
+        "Headers": {
+          "X-Chocoflask-Token": "example"
+        },
+        "Body": "MultipartFormData",
+        "FileFormName": "chocoflask",
+        "ResponseType": "Text",
+        "URL": "$json:response.url$",
+        "ThumbnailURL": "$json:response.vanity_url$",
+        "DeletionURL": "$json:response.delete_url$"
+      }
+    ]
+  }
+  
+  

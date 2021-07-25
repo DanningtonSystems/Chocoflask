@@ -1,0 +1,38 @@
+#!/usr/bin/env node
+const fs = require("fs");
+const path = require("path");
+const chalk = require("chalk");
+const pkgjson = require("../package.json");
+
+console.log(chalk.greenBright(`Starting Chocoflask v${pkgjson.version}..`));
+
+try {
+    require(path.join(__dirname, "./components/preload.js"));
+} catch (e) {
+    console.log(chalk.yellowBright(`preload.js could not be loaded. Starting without any preloader preparation.. ${e}`));
+};
+
+const componentDir = fs.readdirSync(path.join(__dirname + "/components"), { withFileTypes: true }).filter(subcat => subcat.isDirectory());
+for (const component of componentDir) {
+    const cname = component.name;
+    const manifestFilter = fs.readdirSync(path.join(__dirname, `/components/${cname}`)).filter(ent => ent === "manifest.json");
+    
+    if (manifestFilter.length === 0) return;
+
+    let manifest;
+    try {
+        require(path.join(__dirname + `/components/${cname}/manifest.json`));
+        manifest = require(path.join(__dirname + `/components/${cname}/manifest.json`));
+        if (manifest.name == undefined) manifest.name = cname;
+        if (manifest.version == undefined) manifest.version = pkgjson.version;
+        if (manifest.entrypoint == undefined) return console.log(chalk.redBright(`No entrypoint was specified in the manifest for ${cname}.`));
+        try {
+            require(path.join(__dirname + `/components/${cname}/${manifest.entrypoint}`));
+        } catch (f) {
+            console.log(chalk.redBright(`Failed to load entrypoint of ${manifest.name}: \n${f}`));
+        }; 
+    } catch (e) {
+        console.log(chalk.redBright(`Error loading manifest for ${cname}: \n${e}`));
+        return;
+    };
+};

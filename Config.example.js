@@ -7,7 +7,8 @@ module.exports = {
         "enabled": true, // Determines if the Chocoflask CDE is to be enabled. On by default.
         "url": "https://example.com", // The URL to the Chocoflask CDE instance.
         "web": {
-            "redirect": "https://example.com" // The redirect URL for requests that go to the root path.
+            "redirect": "https://example.com", // The redirect URL for requests that go to the root path.
+            "instanceName": "Example" // The name of the CDE instance. Example by default.
         },
         "api": {
             "uploadLimit": 65536, // The CDE upload file size in MiB (mibibytes, or megabytes using multiples of 1024 instead of 1000). This is 64 gigabytes by default.

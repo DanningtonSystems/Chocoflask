@@ -11,7 +11,7 @@ function uniqueFn(file) {
     if (fs.existsSync(path.join(process.filePath + `/${fn.trim()}`))) {
         return uniqueFn(file);
     }
-    return { nameExt: `${fn.trim()}.${fExt.trim()}`, name: fn };
+    return { nameExt: `${fn.trim()}.${fExt.trim()}`, name: fn, ext: fExt.trim() };
 };
 
 api.post("/upload", function (req, res, next) {
@@ -33,7 +33,7 @@ api.post("/upload", function (req, res, next) {
     
     const file = req.files.chocoflask;
     let generatedName = uniqueFn(file);
-    let instanceURL = process.config.cde.url.trim().replace("http://", "https://");
+    let instanceURL = process.config.cde.url.trim();
     if (instanceURL.endsWith("/")) instanceURL = instanceURL.substr(0, instanceURL.length - 1);
 
     try {
@@ -45,7 +45,7 @@ api.post("/upload", function (req, res, next) {
 
     console.log(`${chalk.blue("[API]")} ${chalk.yellow("[/api/v1/upload]")} ${chalk.green(`File ${generatedName.nameExt} uploaded successfully (token ${key.substr(0, 3) + '...'})`)}`);
 
-    res.status(200).send({ status: 200, response: { url: `${instanceURL}/${generatedName.name}`, delete_url: `${instanceURL}/api/v1/delete?file=${generatedName.nameExt}` } });
+    res.status(200).send({ status: 200, response: { url: `${instanceURL}/${generatedName.ext}/${generatedName.name}`, delete_url: `${instanceURL}/api/v1/delete?file=${generatedName.nameExt}` } });
 });
 
 module.exports = api;

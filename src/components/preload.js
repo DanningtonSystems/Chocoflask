@@ -2,11 +2,15 @@ const cors = require("cors");
 const crypto = require('crypto');
 const fs = require("fs");
 const path = require("path");
+const { app } = require("process");
 process.express = require("express");
 process.pkg = require("../../package.json");
 process.app = process.express();
 process.config = require("../../Config.js");
 process.app.use(cors());
+
+process.app.use("/backend/main", process.express.static(path.join(__dirname + "/../../files/main/")));
+process.app.use("/backend/asset", process.express.static(path.join(__dirname + "/../../files/asset/")));
 
 // Credit: Сергей Дудко on Stack Overflow (9 June 2021); https://stackoverflow.com/questions/1349404/
 process.random = function(length = 12) {

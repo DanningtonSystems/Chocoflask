@@ -8,6 +8,7 @@
         <meta property="og:image" content="<%= backendURL %>">
         <meta name="twitter:card" content="summary_large_image">
         <meta name="theme-color" content="#143642">
+        <link rel="icon" type="image/png" href="/backend/asset/Chocoflask.png" sizes="32x32">
 
         <script src="https://cdn.jsdelivr.net/npm/node-vibrant@3.2.1-alpha.1/dist/vibrant.min.js"></script>
     </head>
@@ -40,17 +41,21 @@
                 max-width: 75%;
                 height: auto;
             }
+            #imageServe {
+                border-style:solid;
+                border-width: 5px;
+            }
         </style>
         <div class="centre">
             <h2 class="header">Image uploaded at <%= birthtime %></h2>
             <a href="<%= process.configuration.cde.web.redirect %>">
-                <img src="/backend/asset/Chocoflask.png" alt="Chocoflask logo" class="logo">
+                <img id="cde-image" src="/backend/asset/Chocoflask.png" alt="Chocoflask logo" class="logo">
             </a>
-            <img src="/backend/main/<%= fileName %>" alt="<%= fileName %>">
+            <img id="imageServe" src="/backend/main/<%= fileName %>" alt="<%= fileName %>">
 
             <script>
                 (async function () {
-                    var colours = await (new Vibrant.from("<%= backendURL %>")).getPalette();
+                    var colours = await (new Vibrant.from("/backend/main/<%= fileName %>")).getPalette();
                     document.body.style.backgroundImage = `linear-gradient(45.34deg, ${colours.DarkVibrant.hex} 3.5%, ${colours.LightVibrant.hex} 96.5%)`;
                 })();
             </script>

@@ -1,0 +1,15 @@
+{
+  "Version": "13.5.0",
+  "DestinationType": "ImageUploader, TextUploader, FileUploader",
+  "RequestMethod": "POST",
+  "RequestURL": "https://example.com/chocoflask/api/v1/upload",
+  "Headers": {
+    "X-Chocoflask-Token": "example"
+  },
+  "Body": "MultipartFormData",
+  "FileFormName": "chocoflask",
+  "URL": "$json:response.url$",
+  "ThumbnailURL": "$json:response.vanity_url$",
+  "DeletionURL": "$json:response.delete_url$",
+  "ErrorMessage": "$json:response$"
+}

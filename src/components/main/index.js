@@ -49,7 +49,7 @@ app.get("/:extension/:file", function(req, res, next) {
             res.render("image", { 
                 backendURL: `${instanceURL}/backend/main/${req.params.file}.${req.params.extension}`,
                 fileName: `${req.params.file}.${req.params.extension}`,
-                birthtime: `${btdLuxon.toLocaleString(TimeLocale)} on ${btdLuxon.toLocaleString({ locale: "en-gb", month: "long", day: "numeric", year: "numeric", timeZone: "UTC" })} (GMT)`
+                birthtime: `${btdLuxon.toLocaleString(TimeLocale)} on ${btdLuxon.setZone("utc").toFormat("d MMMM yyyy")} (GMT)`
              });
         } else {
             res.redirect(`${instanceURL}/backend/main/${req.params.file}.${req.params.extension}`);

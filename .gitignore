@@ -95,5 +95,6 @@ npm-debug.log
 
 # Chocoflask-specific
 Config.js
-files/
-src/components/dannington
+files/main/
+files/misc/
+src/components/dannington/

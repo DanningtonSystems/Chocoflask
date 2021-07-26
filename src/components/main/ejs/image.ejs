@@ -1,9 +1,9 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-        <title><%= process.config.cde.web.instanceName %> - <%= fileName %></title>
+        <title><%= process.configuration.cde.web.instanceName %> - <%= fileName %></title>
         <meta property="og:type" content="article">
-        <meta property="og:site_name" content="<%= process.config.cde.web.instanceName %>">
+        <meta property="og:site_name" content="<%= process.configuration.cde.web.instanceName %>">
         <meta property="og:title" content="Image uploaded at <%= birthtime %>">
         <meta property="og:image" content="<%= backendURL %>">
         <meta name="twitter:card" content="summary_large_image">
@@ -43,7 +43,7 @@
         </style>
         <div class="centre">
             <h2 class="header">Image uploaded at <%= birthtime %></h2>
-            <a href="<%= process.config.cde.web.redirect %>">
+            <a href="<%= process.configuration.cde.web.redirect %>">
                 <img src="/backend/asset/Chocoflask.png" alt="Chocoflask logo" class="logo">
             </a>
             <img src="/backend/main/<%= fileName %>" alt="<%= fileName %>">

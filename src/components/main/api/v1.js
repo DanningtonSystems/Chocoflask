@@ -7,7 +7,7 @@ const api = express.Router();
 function uniqueFn(file) {
     let fExt = file.name.split(".");
     fExt = fExt[fExt.length - 1];
-    let fn = process.random(process.config.cde.api.generatedFileNameLength);
+    let fn = process.random(process.configuration.cde.api.generatedFileNameLength);
     if (fs.existsSync(path.join(process.filePath + `/${fn.trim()}`))) {
         return uniqueFn(file);
     }
@@ -21,7 +21,7 @@ api.post("/upload", function (req, res, next) {
         return res.status(401).send({ status: 401, response: "Unauthorized (X-Chocoflask-Token header missing)" });
     };
     let key = req.headers["x-chocoflask-token"];
-    if (key !== process.config.cde.api.token) {
+    if (key !== process.configuration.cde.api.token) {
         console.log(`${chalk.blue("[API AUTH]")} ${chalk.yellow("[/api/v1/upload]")} ${chalk.red(`An upload request was sent to Chocoflask with an invalid token (token ${key.substr(0, 3) + '...'})`)}`);
         return res.status(403).send({ status: 403, response: "Forbidden (X-Chocoflask-Token header invalid)" });
     };
@@ -33,7 +33,7 @@ api.post("/upload", function (req, res, next) {
     
     const file = req.files.chocoflask;
     let generatedName = uniqueFn(file);
-    let instanceURL = process.config.cde.url.trim();
+    let instanceURL = process.configuration.cde.url.trim();
     if (instanceURL.endsWith("/")) instanceURL = instanceURL.substr(0, instanceURL.length - 1);
 
     try {

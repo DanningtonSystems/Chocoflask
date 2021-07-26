@@ -17,7 +17,7 @@ app.use(
         safeFileNames: true,
         preserveExtension: true,
         limits: {
-            fileSize: (process.config.cde.api.uploadLimit) * 1024 * 1024
+            fileSize: (process.configuration.cde.api.uploadLimit) * 1024 * 1024
         }
     })
 );
@@ -31,7 +31,7 @@ app.use(function (req, res, next) {
 app.use("/api/v1", api);
 
 app.get("/", function(req, res) {
-    res.redirect(process.config.cde.web.redirect);
+    res.redirect(process.configuration.cde.web.redirect);
 });
 
 app.get("/:extension/:file", function(req, res, next) {
@@ -42,7 +42,7 @@ app.get("/:extension/:file", function(req, res, next) {
         const TimeLocale = DateTime.TIME_SIMPLE;
         TimeLocale.timeZone = "UTC";
 
-        let instanceURL = process.config.cde.url.trim();
+        let instanceURL = process.configuration.cde.url.trim();
         if (instanceURL.endsWith("/")) instanceURL = instanceURL.substr(0, instanceURL.length - 1);
 
         if (validImageExtensions.includes(req.params.extension)) {
@@ -61,6 +61,6 @@ app.get("/:extension/:file", function(req, res, next) {
     };
 });
 
-app.listen(process.config.network.port, process.config.network.interface, function() {
-    console.log(chalk.green(`Chocoflask CDE core listening on ${process.config.network.interface}:${process.config.network.port}`));   
+app.listen(process.configuration.network.port, process.configuration.network.interface, function() {
+    console.log(chalk.green(`Chocoflask CDE core listening on ${process.configuration.network.interface}:${process.configuration.network.port}`));   
 });

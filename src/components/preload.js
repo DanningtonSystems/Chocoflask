@@ -6,7 +6,7 @@ const { app } = require("process");
 process.express = require("express");
 process.pkg = require("../../package.json");
 process.app = process.express();
-process.config = require("../../Config.js");
+process.configuration = require("../../Config.js");
 process.app.use(cors());
 
 process.app.use("/backend/main", process.express.static(path.join(__dirname + "/../../files/main/")));

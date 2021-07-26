@@ -4,7 +4,7 @@ const path = require("path");
 const chalk = require("chalk");
 const pkgjson = require("../package.json");
 
-console.log(chalk.greenBright(`Starting Chocoflask v${pkgjson.version}..`));
+console.log(chalk.greenBright(`Starting Chocoflask Chococore v${pkgjson.version}..`));
 
 try {
     require(path.join(__dirname, "./components/preload.js"));

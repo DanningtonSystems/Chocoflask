@@ -27,7 +27,7 @@ Installing is as simple as:
 
 - (Optional) modifying the chocoflask.service to include your chocoflask location
 
-- (Optional) copying chocoflask.service to `/lib/systemd/system` and enabling it with `systemctl enable --now chocoflask`
+- (Optional) copying chocoflask.service to `/etc/systemd/system` and enabling it with `systemctl enable --now chocoflask`
 
 ## Creating components
 Creating a Chocoflask component is as simple as creating a new folder inside of `src/components` (or creating a new repository using your favourite version control system) and writing a manifest.json file inside of it. Below is an example of a manifest.json file:

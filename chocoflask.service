@@ -1,0 +1,13 @@
+[Unit]
+Description=Chocoflask
+Documentation=https://dannington.systems
+After=network.target
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/bin/node /opt/chocoflask/src/chocoflask
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

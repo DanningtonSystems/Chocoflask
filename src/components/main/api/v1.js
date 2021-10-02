@@ -45,7 +45,7 @@ api.post("/upload", function (req, res, next) {
 
     console.log(`${chalk.blue("[API]")} ${chalk.yellow("[/api/v1/upload]")} ${chalk.green(`File ${generatedName.nameExt} uploaded successfully (token ${key.substr(0, 3) + '...'})`)}`);
 
-    res.status(200).send({ status: 200, response: { url: `${instanceURL}/${generatedName.ext}/${generatedName.name}`, delete_url: `${instanceURL}/api/v1/delete?file=${generatedName.nameExt}` } });
+    res.status(200).send({ status: 200, response: { url: `${instanceURL}/${generatedName.ext}/${generatedName.name}`, delete_url: `${instanceURL}/api/v1/delete?file=${generatedName.nameExt}`, vanity_url: `${instanceURL}/backend/main/${generatedName.nameExt}` } });
 });
 
 module.exports = api;

@@ -1,0 +1,13 @@
+[Unit]
+Description=Chocoflask
+Documentation=Modify the path of ExecStart to your Chocoflask install path.
+After=network.target
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/bin/node /opt/chocoflask/src/chocoflask
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

@@ -25,6 +25,8 @@ Installing is as simple as:
   
 - loading Chocoflask using `node .` or `node src/chocoflask` (yes, the Chocoflask/Chococore entrypoint does NOT have a .js extension, but Node.js will **still recognise it as JavaScript**).
 
+- (Optional) modifying chocoflask.service to your install path then copying to `/etc/systemd/system` and enabling it with `systemctl enable --now chocoflask`
+
 ## Creating components
 Creating a Chocoflask component is as simple as creating a new folder inside of `src/components` (or creating a new repository using your favourite version control system) and writing a manifest.json file inside of it. Below is an example of a manifest.json file:
 

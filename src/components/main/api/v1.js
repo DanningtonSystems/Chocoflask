@@ -2,6 +2,7 @@ const chalk = require("chalk");
 const fs = require("fs"); 
 const path = require("path");
 const express = require("express");
+const { DateTime } = require("luxon");
 const api = express.Router();
 
 function uniqueFn(file) {
@@ -46,6 +47,42 @@ api.post("/upload", function (req, res, next) {
     console.log(`${chalk.blue("[API]")} ${chalk.yellow("[/api/v1/upload]")} ${chalk.green(`File ${generatedName.nameExt} uploaded successfully (token ${key.substr(0, 3) + '...'})`)}`);
 
     res.status(200).send({ status: 200, response: { url: `${instanceURL}/${generatedName.ext}/${generatedName.name}`, delete_url: `${instanceURL}/api/v1/delete?file=${generatedName.nameExt}` } });
+});
+
+api.get("/information/:extension/:file", function(req, res, next) {
+    let validImageExtensions = ["png", "jpg", "jpeg", "gif", "svg"];
+    try {
+        const stat = fs.statSync(path.join(process.filePath + `/${req.params.file}.${req.params.extension}`));
+        const btdLuxon = DateTime.fromJSDate(stat.birthtime);
+        const TimeLocale = DateTime.TIME_SIMPLE;
+        TimeLocale.timeZone = "UTC";
+
+        let instanceURL = process.configuration.cde.url.trim();
+        if (instanceURL.endsWith("/")) instanceURL = instanceURL.substr(0, instanceURL.length - 1);
+
+        if (validImageExtensions.includes(req.params.extension)) {
+            res.status(200).send({ status: 200, response: {
+                    backendURL: `${instanceURL}/${req.params.extension}/${req.params.file}`,
+                    fileName: `${req.params.file}.${req.params.extension}`,
+                    fileType: req.params.extension,
+                    compatible: validImageExtensions.includes(req.params.extension),
+                    utcBirthtime: stat.birthtime.toISOString()
+                } 
+            });
+        } else {
+            res.status(200).send({ status: 200, response: {
+                    backendURL: `${instanceURL}/${req.params.extension}/${req.params.file}`,
+                    fileName: `${req.params.file}.${req.params.extension}`,
+                    fileType: req.params.extension,
+                    compatible: validImageExtensions.includes(req.params.extension),
+                    utcBirthtime: stat.birthtime.toISOString()
+                } 
+            });
+        };
+    } catch (e) {
+        console.log(e)
+        return res.status(404).send({ status: 404, response: "File not found - the file might not exist anymore, perhaps?" });
+    };
 });
 
 module.exports = api;

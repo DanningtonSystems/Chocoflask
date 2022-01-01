@@ -35,7 +35,10 @@ api.post("/upload", function (req, res, next) {
     const file = req.files.chocoflask;
     let generatedName = uniqueFn(file);
     let instanceURL = process.configuration.cde.url.trim();
+    if (process.configuration.vessel.enabled) instanceURL = process.configuration.vessel.url.trim();
     if (instanceURL.endsWith("/")) instanceURL = instanceURL.substr(0, instanceURL.length - 1);
+
+    let delURL = `${process.configuration.cde.url.trim()}/api/v1/delete?file=${generatedName.nameExt}`;
 
     try {
         fs.writeFileSync(path.join(process.filePath + `/${generatedName.nameExt}`), file.data);
@@ -46,14 +49,13 @@ api.post("/upload", function (req, res, next) {
 
     console.log(`${chalk.blue("[API]")} ${chalk.yellow("[/api/v1/upload]")} ${chalk.green(`File ${generatedName.nameExt} uploaded successfully (token ${key.substr(0, 3) + '...'})`)}`);
 
-    res.status(200).send({ status: 200, response: { url: `${instanceURL}/${generatedName.ext}/${generatedName.name}`, delete_url: `${instanceURL}/api/v1/delete?file=${generatedName.nameExt}` } });
+    res.status(200).send({ status: 200, response: { url: `${instanceURL}/${generatedName.ext}/${generatedName.name}`, delete_url: delURL } });
 });
 
 api.get("/information/:extension/:file", function(req, res, next) {
     let validImageExtensions = ["png", "jpg", "jpeg", "gif", "svg"];
     try {
         const stat = fs.statSync(path.join(process.filePath + `/${req.params.file}.${req.params.extension}`));
-        const btdLuxon = DateTime.fromJSDate(stat.birthtime);
         const TimeLocale = DateTime.TIME_SIMPLE;
         TimeLocale.timeZone = "UTC";
 

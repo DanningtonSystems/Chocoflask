@@ -15,5 +15,9 @@ module.exports = {
             "token": "example", // The CDE authentication token for uploading files and running dangerous actions.
             "generatedFileNameLength": 9, // The length of random file names (used for uploading images and videos using the API). This is 9 by default.
         }
+    },
+    "vessel": {
+        "enabled": false, // Determines if Chocoflask Vessel should be used for accessing media. Disabled by default.
+        "url": "https://example.com", // The URL to the Chocoflask Vessel instance.
     }
 }

@@ -1,6 +1,6 @@
 {
   "name": "chocoflask",
-  "version": "1.0.0-alpha",
+  "version": "1.0.0",
   "description": "The Chocoflask CDE",
   "main": "./src/chocoflask",
   "repository": "https://github.com/DanningtonSystems/Chocoflask.git",
